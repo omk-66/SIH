@@ -6,7 +6,8 @@ export default async function DashBoardPage() {
 
     return (
         <div>
-            <p>Email: {user.email}</p>
+            <p>Email: {user?.email}</p>
+            <p>dashborad</p>
         </div>
     );
 }

@@ -13,15 +13,15 @@ export default async function NavBar() {
                 <div className="flex items-center space-x-4">
                     <div className="space-x-4">
                         {isUserAuthenticated ? (
-                            <Button className="bg-destructive hover:bg-destructive-foreground text-white font-semibold py-2 px-4 rounded-md shadow-sm">
+                            <Button variant={'destructive'} size={'lg'}>
                                 <LogoutLink>Log out</LogoutLink>
                             </Button>
                         ) : (
                             <>
-                                <Button className="bg-primary hover:bg-primary-foreground text-white font-semibold py-2 px-4 rounded-md shadow-sm">
+                                <Button size={"lg"}>
                                     <LoginLink>Sign in</LoginLink>
                                 </Button>
-                                <Button className="bg-primary hover:bg-primary-foreground text-white font-semibold py-2 px-4 rounded-md shadow-sm">
+                                <Button size={'lg'}>
                                     <RegisterLink>Sign up</RegisterLink>
                                 </Button>
                             </>
