@@ -1,7 +1,7 @@
-
+import UploadPage from "@/components/upload/upload-page"
 export default function UploadDataPage() {
     return (
-        <div>UploadDataPage</div>
+        <div><UploadPage /></div>
     )
 }
 

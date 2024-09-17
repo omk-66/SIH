@@ -1,7 +1,8 @@
+import UploadForm2 from "@/components/upload/upload-pages";
 
 export default function VisualizationPage() {
     return (
-        <div>VisualizationPage</div>
+        <div><UploadForm2 /></div>
     )
 }
 

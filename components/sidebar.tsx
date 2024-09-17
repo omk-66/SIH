@@ -17,9 +17,9 @@ export default function SideBar() {
     const isActive = (path: string) => pathname === path;
 
     return (
-        <div className="w-64 bg-secondary text-secondary-foreground h-screen flex flex-col border-r border-border-light">
-            <nav className="flex-1 p-4">
-                <ul className="space-y-2">
+        <div className="w-64 bg-secondary text-secondary-foreground h-screen flex flex-col border-r border-border-light ">
+            <nav className="flex-1 overflow-y-auto">
+                <ul className="space-y-2 p-4">
                     <li>
                         <Button
                             onClick={() => handleNavigation('/upload')}
