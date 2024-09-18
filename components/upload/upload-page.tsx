@@ -22,8 +22,6 @@ export default function UploadForm() {
         defaultValues: {
             datasetName: "",
             dataType: "occurrence",
-            startDate: "",
-            endDate: "",
             location: "",
             species: "",
             comments: "",
@@ -32,37 +30,38 @@ export default function UploadForm() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof uploadSchema>) {
+    const onSubmit = async (values: z.infer<typeof uploadSchema>) => {
         const formData = new FormData();
 
         // Append form values to formData
-        formData.append("datasetName", values.datasetName);
-        formData.append("dataType", values.dataType);
-        formData.append("startDate", values.startDate);
-        formData.append("endDate", values.endDate);
-        formData.append("location", values.location);
-        formData.append("species", values.species || "");
-        formData.append("comments", values.comments || "");
-        formData.append("dataFormat", values.dataFormat);
-
-        // Append file if it's present
-        if (values.file) {
-            formData.append("file", values.file);
-        }
+        Object.entries(values).forEach(([key, value]) => {
+            if (key === 'file' && value) {
+                formData.append(key, value);
+            } else {
+                formData.append(key, value || "");
+            }
+        });
+        console.log(formData)
 
         // Send the POST request to the backend API route
-        fetch('/api/uploadData', {
-            method: 'POST',
-            body: formData,
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Response from server:", data);
-            })
-            .catch((error) => {
-                console.error("Error sending data to server:", error);
+        try {
+            const response = await fetch('/api/uploadData', {
+                method: 'POST',
+                body: formData,
             });
-    }
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Error uploading data");
+            }
+
+            console.log("Response from server:", data);
+            // You can also handle success feedback here (e.g., show a success message)
+        } catch (error) {
+            console.error("Error sending data to server:", error);
+            // Handle error feedback here (e.g., show an error message)
+        }
+    };
 
     return (
         <div className="max-w-lg mx-auto">
@@ -93,7 +92,7 @@ export default function UploadForm() {
                                 <FormControl>
                                     <Select
                                         value={field.value}
-                                        onValueChange={(value) => field.onChange(value)}
+                                        onValueChange={field.onChange}
                                     >
                                         <SelectTrigger className="border border-gray-300 rounded-md p-3 w-full">
                                             <SelectValue placeholder="Select Data Type" />
@@ -103,36 +102,6 @@ export default function UploadForm() {
                                             <SelectItem value="abundance">Species Abundance</SelectItem>
                                         </SelectContent>
                                     </Select>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Start Date Field */}
-                    <FormField
-                        control={form.control}
-                        name="startDate"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Start Date</FormLabel>
-                                <FormControl>
-                                    <Input type="date" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* End Date Field */}
-                    <FormField
-                        control={form.control}
-                        name="endDate"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>End Date</FormLabel>
-                                <FormControl>
-                                    <Input type="date" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -179,7 +148,7 @@ export default function UploadForm() {
                                 <FormControl>
                                     <Select
                                         value={field.value}
-                                        onValueChange={(value) => field.onChange(value)}
+                                        onValueChange={field.onChange}
                                     >
                                         <SelectTrigger className="border border-gray-300 rounded-md p-3 w-full">
                                             <SelectValue placeholder="Select Data Format" />

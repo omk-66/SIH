@@ -1,4 +1,4 @@
-import UploadForm2 from "@/components/upload/upload-pages";
+import UploadForm2 from "@/components/upload/upload-page";
 
 export default function VisualizationPage() {
     return (

@@ -1,13 +1,12 @@
-// /app/api/uploadData/route.ts
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import * as XLSX from 'xlsx';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
         // Get form data from the request
         const formData = await request.formData();
 
-        // Convert the formData to a plain object for easier logging
+        // Initialize an object to store form values
         const values: { [key: string]: any } = {};
         let file: File | undefined;
 
@@ -44,6 +43,8 @@ export async function POST(request: Request) {
                 const sheet = workbook.Sheets[sheetName];
                 const json = XLSX.utils.sheet_to_json(sheet);
                 values["parsedFile"] = json;
+            } else {
+                return NextResponse.json({ message: "Unsupported file type" }, { status: 400 });
             }
         }
 

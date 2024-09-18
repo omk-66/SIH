@@ -1,20 +1,21 @@
-import z from "zod";
+import * as z from "zod";
+import { zfd } from "zod-form-data";
 
-// Update schema to accept csv, json, and xlsx formats
+// Define the Zod schema for the upload form
 export const uploadSchema = z.object({
     datasetName: z.string().min(1, "Dataset Name is required"),
     dataType: z.enum(["occurrence", "abundance"], { invalid_type_error: "Data Type is required" }),
-    startDate: z.string().min(1, "Start Date is required"),
-    endDate: z.string().min(1, "End Date is required"),
     location: z.string().min(1, "Location is required"),
     species: z.string().optional(),
     comments: z.string().optional(),
-    file: z
-        .instanceof(File)
-        .refine((file) =>
-            ['text/csv', 'application/json', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file?.type), {
+    file: zfd.file().refine((file) =>
+        ['text/csv', 'application/json', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'].includes(file.type),
+        {
             message: "Only CSV, JSON, or XLSX files are allowed.",
-        })
-        .optional(),
+        }
+    ),
     dataFormat: z.enum(["csv", "json", "xlsx"], { invalid_type_error: "Data Format is required" }),
 });
+
+// Create a TypeScript type from the schema
+export type UploadFormData = z.infer<typeof uploadSchema>;
