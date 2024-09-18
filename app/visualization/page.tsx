@@ -1,8 +1,11 @@
-import UploadForm2 from "@/components/upload/upload-page";
+import HeatMap from "@/components/visualization/heat-map";
 
 export default function VisualizationPage() {
     return (
-        <div><UploadForm2 /></div>
-    )
+        <main className="flex items-center justify-center min-h-screen bg-background text-foreground overflow-hidden">
+            <div className="relative w-full h-full">
+                <HeatMap />
+            </div>
+        </main>
+    );
 }
-

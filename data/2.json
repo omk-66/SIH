@@ -1,0 +1,162 @@
+[
+    {
+        "Species": {
+            "id": 1,
+            "name": "Bluefin Tuna"
+        },
+        "FishCatchOccurrence": {
+            "id": 1,
+            "date": "2024-09-15T12:00:00Z",
+            "latitude": -20.3456,
+            "longitude": 55.6789,
+            "depth": 30.5,
+            "speciesId": 1,
+            "catchWeight": 120.5,
+            "dataSource": "Research Vessel A",
+            "locationId": 101,
+            "createdAt": "2024-09-15T12:00:00Z",
+            "updatedAt": "2024-09-15T12:00:00Z"
+        },
+        "FishCatchAbundance": {
+            "id": 1,
+            "date": "2024-09-15T12:00:00Z",
+            "latitude": -20.3456,
+            "longitude": 55.6789,
+            "depth": 30.5,
+            "speciesId": 1,
+            "catchWeight": 150.0,
+            "dataSource": "Research Vessel A",
+            "locationId": 101,
+            "createdAt": "2024-09-15T12:00:00Z",
+            "updatedAt": "2024-09-15T12:00:00Z"
+        }
+    },
+    {
+        "Species": {
+            "id": 2,
+            "name": "Yellowfin Tuna"
+        },
+        "FishCatchOccurrence": {
+            "id": 2,
+            "date": "2024-09-16T14:30:00Z",
+            "latitude": -21.4567,
+            "longitude": 56.7890,
+            "depth": 45.0,
+            "speciesId": 2,
+            "catchWeight": 85.0,
+            "dataSource": "Research Vessel B",
+            "locationId": 102,
+            "createdAt": "2024-09-16T14:30:00Z",
+            "updatedAt": "2024-09-16T14:30:00Z"
+        },
+        "FishCatchAbundance": {
+            "id": 2,
+            "date": "2024-09-16T14:30:00Z",
+            "latitude": -21.4567,
+            "longitude": 56.7890,
+            "depth": 45.0,
+            "speciesId": 2,
+            "catchWeight": 100.0,
+            "dataSource": "Research Vessel B",
+            "locationId": 102,
+            "createdAt": "2024-09-16T14:30:00Z",
+            "updatedAt": "2024-09-16T14:30:00Z"
+        }
+    },
+    {
+        "Species": {
+            "id": 3,
+            "name": "Swordfish"
+        },
+        "FishCatchOccurrence": {
+            "id": 3,
+            "date": "2024-09-17T09:00:00Z",
+            "latitude": -22.5678,
+            "longitude": 57.8901,
+            "depth": 50.0,
+            "speciesId": 3,
+            "catchWeight": 200.0,
+            "dataSource": "Research Vessel C",
+            "locationId": 103,
+            "createdAt": "2024-09-17T09:00:00Z",
+            "updatedAt": "2024-09-17T09:00:00Z"
+        },
+        "FishCatchAbundance": {
+            "id": 3,
+            "date": "2024-09-17T09:00:00Z",
+            "latitude": -22.5678,
+            "longitude": 57.8901,
+            "depth": 50.0,
+            "speciesId": 3,
+            "catchWeight": 220.0,
+            "dataSource": "Research Vessel C",
+            "locationId": 103,
+            "createdAt": "2024-09-17T09:00:00Z",
+            "updatedAt": "2024-09-17T09:00:00Z"
+        }
+    },
+    {
+        "Species": {
+            "id": 4,
+            "name": "Marlin"
+        },
+        "FishCatchOccurrence": {
+            "id": 4,
+            "date": "2024-09-18T16:00:00Z",
+            "latitude": -23.6789,
+            "longitude": 58.9012,
+            "depth": 60.0,
+            "speciesId": 4,
+            "catchWeight": 250.0,
+            "dataSource": "Research Vessel D",
+            "locationId": 104,
+            "createdAt": "2024-09-18T16:00:00Z",
+            "updatedAt": "2024-09-18T16:00:00Z"
+        },
+        "FishCatchAbundance": {
+            "id": 4,
+            "date": "2024-09-18T16:00:00Z",
+            "latitude": -23.6789,
+            "longitude": 58.9012,
+            "depth": 60.0,
+            "speciesId": 4,
+            "catchWeight": 270.0,
+            "dataSource": "Research Vessel D",
+            "locationId": 104,
+            "createdAt": "2024-09-18T16:00:00Z",
+            "updatedAt": "2024-09-18T16:00:00Z"
+        }
+    },
+    {
+        "Species": {
+            "id": 5,
+            "name": "Mahi Mahi"
+        },
+        "FishCatchOccurrence": {
+            "id": 5,
+            "date": "2024-09-19T11:30:00Z",
+            "latitude": -24.7890,
+            "longitude": 59.0123,
+            "depth": 35.0,
+            "speciesId": 5,
+            "catchWeight": 90.0,
+            "dataSource": "Research Vessel E",
+            "locationId": 105,
+            "createdAt": "2024-09-19T11:30:00Z",
+            "updatedAt": "2024-09-19T11:30:00Z"
+        },
+        "FishCatchAbundance": {
+            "id": 5,
+            "date": "2024-09-19T11:30:00Z",
+            "latitude": -24.7890,
+            "longitude": 59.0123,
+            "depth": 35.0,
+            "speciesId": 5,
+            "catchWeight": 95.0,
+            "dataSource": "Research Vessel E",
+            "locationId": 105,
+            "createdAt": "2024-09-19T11:30:00Z",
+            "updatedAt": "2024-09-19T11:30:00Z"
+        }
+    }
+]

@@ -1,0 +1,107 @@
+[
+    {
+        "id": 1,
+        "date": "2024-09-15T08:00:00Z",
+        "species": {
+            "id": 1,
+            "name": "Tuna",
+            "habitatInfo": "Oceanic waters"
+        },
+        "location": {
+            "id": 1,
+            "latitude": 34.0522,
+            "longitude": -118.2437,
+            "description": "Los Angeles Area"
+        },
+        "latitude": 34.0522,
+        "longitude": -118.2437,
+        "depth": 50.0,
+        "dataSource": "Research Survey",
+        "catchWeight": 200.5,
+        "type": "occurrence"
+    },
+    {
+        "id": 2,
+        "date": "2024-09-16T08:00:00Z",
+        "species": {
+            "id": 2,
+            "name": "Salmon",
+            "habitatInfo": "Freshwater and coastal regions"
+        },
+        "location": {
+            "id": 2,
+            "latitude": 36.7783,
+            "longitude": -119.4179,
+            "description": "California Central Valley"
+        },
+        "latitude": 36.7783,
+        "longitude": -119.4179,
+        "depth": 30.0,
+        "dataSource": "Community Fishing",
+        "catchWeight": 150.0,
+        "type": "abundance"
+    },
+    {
+        "id": 3,
+        "date": "2024-09-17T08:00:00Z",
+        "species": {
+            "id": 3,
+            "name": "Mackerel",
+            "habitatInfo": "Coastal waters"
+        },
+        "location": {
+            "id": 3,
+            "latitude": 37.7749,
+            "longitude": -122.4194,
+            "description": "San Francisco Bay"
+        },
+        "latitude": 37.7749,
+        "longitude": -122.4194,
+        "depth": 20.0,
+        "dataSource": "Research Survey",
+        "catchWeight": 100.0,
+        "type": "occurrence"
+    },
+    {
+        "id": 4,
+        "date": "2024-09-18T08:00:00Z",
+        "species": {
+            "id": 4,
+            "name": "Trout",
+            "habitatInfo": "Freshwater lakes and rivers"
+        },
+        "location": {
+            "id": 4,
+            "latitude": 45.5231,
+            "longitude": -122.6765,
+            "description": "Portland Area"
+        },
+        "latitude": 45.5231,
+        "longitude": -122.6765,
+        "depth": 15.0,
+        "dataSource": "Local Catch",
+        "catchWeight": 75.0,
+        "type": "abundance"
+    },
+    {
+        "id": 5,
+        "date": "2024-09-19T08:00:00Z",
+        "species": {
+            "id": 5,
+            "name": "Cod",
+            "habitatInfo": "Cold ocean waters"
+        },
+        "location": {
+            "id": 5,
+            "latitude": 40.7128,
+            "longitude": -74.0060,
+            "description": "New York Harbor"
+        },
+        "latitude": 40.7128,
+        "longitude": -74.0060,
+        "depth": 40.0,
+        "dataSource": "Commercial Fishing",
+        "catchWeight": 120.0,
+        "type": "occurrence"
+    }
+]

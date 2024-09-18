@@ -1,0 +1,32 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define the datasource for Prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define the simplified model
+// schema.prisma
+
+// Define the model based on DataEntry interface
+model FishCatchData {
+  id          Int      @id @default(autoincrement()) // Primary key
+  species     String // Species name
+  date        DateTime // Date of the catch
+  latitude    Float // Latitude value
+  longitude   Float // Longitude value
+  depth       Float? // Optional depth value
+  catchWeight Float? // Optional catch weight
+  description String? // Optional description
+  locationId  Int? // Optional location ID (assuming)
+  createdAt   DateTime @default(now()) // Auto-generated timestamp
+  updatedAt   DateTime @updatedAt // Auto-updated timestamp
+
+  @@index([latitude, longitude, date]) // Index on latitude, longitude, and date
+  @@index([species]) // Index on species for faster lookup
+}

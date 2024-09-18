@@ -15,8 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { uploadSchema } from "@/schema/upload-form.schema";
+import { useState } from "react";
 
 export default function UploadForm() {
+    const [loading, setLoading] = useState(false);
+    const [feedback, setFeedback] = useState("");
+
     const form = useForm<z.infer<typeof uploadSchema>>({
         resolver: zodResolver(uploadSchema),
         defaultValues: {
@@ -31,37 +35,43 @@ export default function UploadForm() {
     });
 
     const onSubmit = async (values: z.infer<typeof uploadSchema>) => {
+        // console.log(values);
         const formData = new FormData();
-
-        // Append form values to formData
         Object.entries(values).forEach(([key, value]) => {
-            if (key === 'file' && value) {
-                formData.append(key, value);
-            } else {
-                formData.append(key, value || "");
-            }
+            formData.append(key, value || "");
         });
-        console.log(formData)
 
-        // Send the POST request to the backend API route
+        // Inspect the contents of FormData using forEach
+        formData.forEach((value, key) => {
+            console.log(key, value);
+        });
+
+        setLoading(true);
+        setFeedback("");
+
         try {
             const response = await fetch('/api/uploadData', {
                 method: 'POST',
                 body: formData,
             });
             const data = await response.json();
-
             if (!response.ok) {
+                console.log("error in response")
                 throw new Error(data.message || "Error uploading data");
             }
+            console.log("-----------------------------------")
 
             console.log("Response from server:", data);
-            // You can also handle success feedback here (e.g., show a success message)
+            setFeedback("Upload successful!");
+            form.reset(); // Reset the form on success
         } catch (error) {
             console.error("Error sending data to server:", error);
-            // Handle error feedback here (e.g., show an error message)
+            setFeedback("Error sending data to server.");
+        } finally {
+            setLoading(false);
         }
     };
+
 
     return (
         <div className="max-w-lg mx-auto">
@@ -73,9 +83,9 @@ export default function UploadForm() {
                         name="datasetName"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Dataset Name</FormLabel>
+                                <FormLabel htmlFor="datasetName">Dataset Name</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Dataset Name" {...field} />
+                                    <Input id="datasetName" placeholder="Dataset Name" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -88,7 +98,7 @@ export default function UploadForm() {
                         name="dataType"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Data Type</FormLabel>
+                                <FormLabel htmlFor="dataType">Data Type</FormLabel>
                                 <FormControl>
                                     <Select
                                         value={field.value}
@@ -114,9 +124,9 @@ export default function UploadForm() {
                         name="location"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Location</FormLabel>
+                                <FormLabel htmlFor="location">Location</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Enter location" {...field} />
+                                    <Input id="location" placeholder="Enter location" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -129,9 +139,9 @@ export default function UploadForm() {
                         name="species"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Species (comma separated)</FormLabel>
+                                <FormLabel htmlFor="species">Species (comma separated)</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="e.g., Tuna, Salmon" {...field} />
+                                    <Input id="species" placeholder="e.g., Tuna, Salmon" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -144,7 +154,7 @@ export default function UploadForm() {
                         name="dataFormat"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Data Format</FormLabel>
+                                <FormLabel htmlFor="dataFormat">Data Format</FormLabel>
                                 <FormControl>
                                     <Select
                                         value={field.value}
@@ -171,9 +181,10 @@ export default function UploadForm() {
                         name="file"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Upload File</FormLabel>
+                                <FormLabel htmlFor="file">Upload File</FormLabel>
                                 <FormControl>
                                     <Input
+                                        id="file"
                                         type="file"
                                         accept=".csv,.json,.xlsx"
                                         onChange={(e) => {
@@ -193,9 +204,9 @@ export default function UploadForm() {
                         name="comments"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Comments</FormLabel>
+                                <FormLabel htmlFor="comments">Comments</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Comments" {...field} />
+                                    <Input id="comments" placeholder="Comments" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -203,7 +214,11 @@ export default function UploadForm() {
                     />
 
                     {/* Submit Button */}
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" disabled={loading}>
+                        {loading ? "Submitting..." : "Submit"}
+                    </Button>
+
+                    {feedback && <p className="text-center text-green-500">{feedback}</p>}
                 </form>
             </Form>
         </div>
