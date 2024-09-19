@@ -5,7 +5,7 @@ import L from 'leaflet';
 import HeatmapOverlay from 'heatmap.js/plugins/leaflet-heatmap';
 import 'leaflet/dist/leaflet.css'; // Import leaflet styles
 
-const generateRandomData = (numPoints: number) => {
+const generateRandomData = (numPoints) => {
     const data = [];
     for (let i = 0; i < numPoints; i++) {
         const lat = getRandomLatitude();
@@ -22,10 +22,15 @@ const generateRandomData = (numPoints: number) => {
     };
 };
 
-const getRandomLatitude = () => Math.random() * 180 - 90;
-const getRandomLongitude = () => Math.random() * 360 - 180;
+const getRandomLatitude = () => {
+    return Math.random() * 180 - 90;
+};
 
-const HeatMap = () => {
+const getRandomLongitude = () => {
+    return Math.random() * 360 - 180;
+};
+
+const MapComponent = () => {
     const mapRef = useRef(null);
 
     useEffect(() => {
@@ -38,7 +43,6 @@ const HeatMap = () => {
                 }
             );
 
-            // Heatmap configuration
             const cfg = {
                 radius: 20,
                 maxOpacity: 0.8,
@@ -51,36 +55,36 @@ const HeatMap = () => {
 
             const heatmapLayer = new HeatmapOverlay(cfg);
 
-            // Initialize the map
             const map = L.map(mapRef.current, {
                 center: [0, 0],
                 zoom: 2,
                 layers: [baseLayer, heatmapLayer],
-                scrollWheelZoom: false, // Disable scroll zoom if necessary
             });
 
-            // Generate random data
             const globalData = generateRandomData(50);
-
-            // Set heatmap data
             heatmapLayer.setData(globalData);
 
-            // Clean up on component unmount
             return () => {
                 map.remove();
             };
         }
     }, []);
 
+    // Full responsive map container
     return (
         <div
+            id="map-canvas"
             ref={mapRef}
             style={{
-                width: '100%',  // Make the map container full width
-                height: '100vh', // Make the map container full height
+                height: '100%', // Take full height of the parent
+                width: '100%', // Take full width of the parent
+                position: 'absolute', // Make it absolute to fill parent
+                top: 0,
+                left: 0,
+                zIndex: 0,
             }}
         />
     );
 };
 
-export default HeatMap;
+export default MapComponent;

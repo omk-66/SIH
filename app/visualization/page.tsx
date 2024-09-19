@@ -1,11 +1,11 @@
-import HeatMap from "@/components/visualization/heat-map";
+import MapComponent from "@/components/visualization/heat-map";
 
-export default function VisualizationPage() {
+const visualizationpage = () => {
     return (
-        <main className="flex items-center justify-center min-h-screen bg-background text-foreground overflow-hidden">
-            <div className="relative w-full h-full">
-                <HeatMap />
-            </div>
+        <main style={{ height: '100vh', width: '100vw', position: 'relative' }}>
+            <MapComponent />
         </main>
     );
-}
+};
+
+export default visualizationpage;
