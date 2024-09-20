@@ -23,7 +23,7 @@ export default function SideBar() {
                     {[
                         { path: '/', icon: <FaHome />, label: 'Home' },
                         { path: '/upload', icon: <FaUpload />, label: 'Upload Data' },
-                        { path: '/dashboard', icon: <FaTachometerAlt />, label: 'Dashboard' },
+                        // { path: '/dashboard', icon: <FaTachometerAlt />, label: 'Dashboard' },
                         { path: '/visualization', icon: <FaChartLine />, label: 'Visualization' },
                         { path: '/profile', icon: <FaUser />, label: 'Profile' },
                         { path: '/preview', icon: <FaDatabase />, label: 'Preview Database' },

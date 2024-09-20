@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { Toaster, toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -14,12 +15,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { uploadSchema } from "@/schema/upload-form.schema";
+import { uploadSchema } from "@/schema/upload-form.schema"; // Ensure the schema is correctly imported
 import { useState } from "react";
 
 export default function UploadForm() {
     const [loading, setLoading] = useState(false);
-    const [feedback, setFeedback] = useState("");
 
     const form = useForm<z.infer<typeof uploadSchema>>({
         resolver: zodResolver(uploadSchema),
@@ -35,19 +35,12 @@ export default function UploadForm() {
     });
 
     const onSubmit = async (values: z.infer<typeof uploadSchema>) => {
-        // console.log(values);
         const formData = new FormData();
         Object.entries(values).forEach(([key, value]) => {
             formData.append(key, value || "");
         });
 
-        // Inspect the contents of FormData using forEach
-        formData.forEach((value, key) => {
-            console.log(key, value);
-        });
-
         setLoading(true);
-        setFeedback("");
 
         try {
             const response = await fetch('/api/uploadData', {
@@ -56,25 +49,24 @@ export default function UploadForm() {
             });
             const data = await response.json();
             if (!response.ok) {
-                console.log("error in response")
                 throw new Error(data.message || "Error uploading data");
             }
-            console.log("-----------------------------------")
 
-            console.log("Response from server:", data);
-            setFeedback("Upload successful!");
+            // Show success toast notification
+            toast.success("Upload successful!");
+
             form.reset(); // Reset the form on success
         } catch (error) {
             console.error("Error sending data to server:", error);
-            setFeedback("Error sending data to server.");
+            toast.error("Error sending data to server.");
         } finally {
             setLoading(false);
         }
     };
 
-
     return (
         <div className="max-w-lg mx-auto">
+            <Toaster position="top-center" /> {/* Position the Toaster at the top center */}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     {/* Dataset Name Field */}
@@ -217,8 +209,6 @@ export default function UploadForm() {
                     <Button type="submit" disabled={loading}>
                         {loading ? "Submitting..." : "Submit"}
                     </Button>
-
-                    {feedback && <p className="text-center text-green-500">{feedback}</p>}
                 </form>
             </Form>
         </div>

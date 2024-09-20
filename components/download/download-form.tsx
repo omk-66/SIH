@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { Toaster, toast } from 'sonner';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,6 @@ import { useState } from "react";
 
 export default function DownloadForm() {
     const [loading, setLoading] = useState(false);
-    const [feedback, setFeedback] = useState("");
 
     const form = useForm<z.infer<typeof downloadSchema>>({
         resolver: zodResolver(downloadSchema),
@@ -33,7 +33,9 @@ export default function DownloadForm() {
 
     const onSubmit = async (values: z.infer<typeof downloadSchema>) => {
         setLoading(true);
-        setFeedback("");
+        
+        // Show toast notification for starting the download
+        toast.loading("Starting download...");
 
         try {
             const response = await fetch('/api/downloadData', {
@@ -59,11 +61,12 @@ export default function DownloadForm() {
             a.click();
             a.remove();
 
-            setFeedback("Download successful!");
+            // Show success toast notification
+            toast.success("Download successful!");
             form.reset(); // Reset the form on success
         } catch (error) {
             console.error("Error sending data to server:", error);
-            setFeedback("Error sending data to server.");
+            toast.error("Error sending data to server.");
         } finally {
             setLoading(false);
         }
@@ -71,6 +74,7 @@ export default function DownloadForm() {
 
     return (
         <div className="max-w-lg mx-auto">
+            <Toaster position="top-center" /> {/* Position the Toaster at the top center */}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     {/* Species Field */}
@@ -160,8 +164,6 @@ export default function DownloadForm() {
                     <Button type="submit" disabled={loading}>
                         {loading ? "Submitting..." : "Download"}
                     </Button>
-
-                    {feedback && <p className="text-center text-green-500">{feedback}</p>}
                 </form>
             </Form>
         </div>
